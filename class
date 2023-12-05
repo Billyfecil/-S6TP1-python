@@ -1,0 +1,43 @@
+class Metier:
+    def __init__(self, intitule, num_independants):
+        self.intitule = intitule
+        self.num_independants = num_independants
+
+    def __str__(self):
+        return f"Intitulé: {self.intitule}, Numéro d'indépendants: {self.num_independants}"
+
+    def get_nb_independants(self):
+        return len(self.num_independants)
+
+
+class Independant:
+    independants = []
+
+    def __init__(self, identifiant, nom, prenom, codepostal, email, metier, nom_societe=None):
+        self.identifiant = identifiant
+        self.nom = nom
+        self.prenom = prenom
+        self.nom_societe = nom_societe
+        self.codepostal = codepostal
+        self.email = email
+        self.metier = metier
+        Independant.independants.append(self)
+
+    def __str__(self):
+        return f"Identifiant: {self.identifiant}, Nom: {self.nom}, Prénom: {self.prenom}, Nom de société: {self.nom_societe}, Code postal: {self.codepostal}, Email: {self.email}, Métier: {self.metier}"
+
+    @staticmethod
+    def get_emails_by_speciality_and_sector(speciality, sector):
+        emails = []
+        for independant in Independant.independants:
+            if independant.metier.intitule == speciality and independant.codepostal == sector:
+                emails.append(independant.email)
+        return emails
+
+    @staticmethod
+    def get_nb_independants_by_speciality_and_sector(speciality, sector):
+        count = 0
+        for independant in Independant.independants:
+            if independant.metier.intitule == speciality and independant.codepostal == sector:
+                count += 1
+        return count
